@@ -125,6 +125,26 @@
       // Mapzen標高タイルセット
       map.setTerrain({ 'source': 'mapzen-terrain', 'exaggeration': 1 });
 
+      // GEBCO WMS 海底地形図ソース
+      map.addSource("gebco-wms", {
+        'type': 'raster',
+        'tiles': [
+          'https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=gebco_latest&STYLES=&FORMAT=image/png&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256'
+        ],
+        attribution: '<a href="https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/" target="_blank">GEBCO(WMS)</a>',
+        'tileSize': 256
+      });
+
+      // GEBCO WMS 海底地形図レイヤ
+      map.addLayer({
+        'id': 'gebco-wms-layer',
+        'type': 'raster',
+        'source': 'gebco-wms',
+        'paint': {
+          'raster-opacity': 0.3
+        }
+      });
+
       // Mapzen標高タイルソース
       map.addSource("mapzen-terrain-raster", {
         type: 'raster',
