@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>海面上昇シミュレーション（Mapzen Terrain Tiles）</title>
+  <title>Sea Level Rise Simulation（Mapzen Terrain Tiles）</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
@@ -63,9 +63,10 @@
   <div id="map"></div>
   <div class="map-overlay top">
     <div class="map-overlay-inner">
-      <h2>海面上昇シミュレーション</h2>
-      <label>海面高さ: <span id="elevation-slider-value">0m</span></label>
+      <h2>Sea Level Rise Simulation</h2>
+      <label>Sea Level: <span id="elevation-slider-value">0m</span></label>
       <input id="elevation-slider" type="range" min="0" max="100" step="1" value="0">
+      <input id="disclaimer-button" type="button" value="Disclaimer" onclick="showDisclaimer();">
     </div>
   </div>
   <script>
@@ -112,6 +113,11 @@
       customAttribution: '（<a href="https://twitter.com/shi__works" target="_blank">Twitter</a> | <a href="https://github.com/shi-works/global-sea-level-rise-map-on-mapbox-gl-js" target="_blank">Github</a>） '
     }));
 
+    function showDisclaimer() {
+      let disclaimerText = `This simulator merely fills in areas below a certain height with blue based on terrain data, and is different from a hazard map. It does not take into account disaster prevention measures such as levees or sediment accumulation. Please refer to the hazard maps published by local governments for the actual risks during floods or tsunamis.`
+      alert(disclaimerText)
+    }
+
     // 地図がロードされたら実行
     map.on('load', () => {
       // Mapzen標高タイルソース
@@ -125,6 +131,7 @@
       // Mapzen標高タイルセット
       map.setTerrain({ 'source': 'mapzen-terrain', 'exaggeration': 1 });
 
+      /*
       // GEBCO WMS 海底地形図ソース
       map.addSource("gebco-wms", {
         'type': 'raster',
@@ -144,6 +151,7 @@
           'raster-opacity': 0.3
         }
       });
+      */
 
       // Mapzen標高タイルソース
       map.addSource("mapzen-terrain-raster", {
