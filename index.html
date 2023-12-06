@@ -201,6 +201,28 @@
 
       });
 
+      // 陰影起伏図ソース
+      map.addSource("hillshade", {
+        type: 'raster',
+        tiles: [
+          'https://cyberjapandata.gsi.go.jp/xyz/earthhillshade/{z}/{x}/{y}.png',
+        ],
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html#earthhillshade target="_blank">地理院タイル(陰影起伏図(全球版))</a>',
+        tileSize: 256
+      });
+
+      // 陰影起伏図レイヤ
+      map.addLayer({
+        id: 'hillshade-tiles',
+        type: 'raster',
+        source: 'hillshade',
+        minzoom: 2,
+        maxzoom: 18,
+        paint: {
+          'raster-opacity': 0.1
+        }
+      });
+
     })
   </script>
 
